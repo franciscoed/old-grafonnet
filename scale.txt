@@ -1,0 +1,3 @@
+logBase=null,
+
+scaleDistribution: if logBase != null then { type: 'log', log: logBase } else { type: 'linear' },
