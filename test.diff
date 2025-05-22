@@ -1,0 +1,91 @@
+@@ -176,7 +176,7 @@
+-    type: 'graph',
++    type: 'timeseries',
+
+@@ -181,7 +181,11 @@
+-    renderer: 'flot',
++    renderer: null,
+
+@@ -182,14 +186,43 @@
+-    yaxes: [
+-      self.yaxe(
+-        if formatY1 != null then formatY1 else format,
+-        min,
+-        max,
+-        decimals=(if decimalsY1 != null then decimalsY1 else decimals),
+-        logBase=logBase1Y,
+-        label=labelY1
+-      ),
+-      self.yaxe(
+-        if formatY2 != null then formatY2 else format,
+-        min,
+-        max,
+-        decimals=(if decimalsY2 != null then decimalsY2 else decimals),
+-        logBase=logBase2Y,
+-        label=labelY2
+-      ),
+-    ],
++    yaxes: null,
++
++    fieldConfig: {
++      defaults: {
++        unit: if formatY1 != null then formatY1 else format,
++        min: min,
++        max: max,
++        decimals: decimalsY1,
++        custom: {
++          drawStyle: if lines then "lines" else "points",
++          lineWidth: linewidth,
++          fillOpacity: fill * 10,
++          pointSize: pointradius,
++          showPoints: points,
++          spanNulls: nullPointMode != 'null',
++          stacking: {
++            mode: if stack then "normal" else "none",
++          },
++        },
++      },
++      overrides: [],
++    },
+
+@@ -226,15 +259,18 @@
+-    legend: {
+-      show: legend_show,
+-      values: legend_values,
+-      min: legend_min,
+-      max: legend_max,
+-      current: legend_current,
+-      total: legend_total,
+-      alignAsTable: legend_alignAsTable,
+-      rightSide: legend_rightSide,
+-      sideWidth: legend_sideWidth,
+-      avg: legend_avg,
+-      [if legend_hideEmpty != null then 'hideEmpty']: legend_hideEmpty,
+-      [if legend_hideZero != null then 'hideZero']: legend_hideZero,
+-      [if legend_sort != null then 'sort']: legend_sort,
+-      [if legend_sortDesc != null then 'sortDesc']: legend_sortDesc,
+-    },
++    legend: null,
++    options: {
++      legend: {
++        showLegend: legend_show,
++        displayMode: if legend_alignAsTable then "table" else "list",
++        placement: if legend_rightSide then "right" else "bottom",
++      },
++      tooltip: {
++        mode: if shared_tooltip then "multi" else "single",
++      },
++    },
+
+@@ -252,7 +288,10 @@
+-    nullPointMode: nullPointMode,
+-    steppedLine: staircase,
+-    tooltip: {
+-      value_type: value_type,
+-      shared: shared_tooltip,
+-      sort: if sort == 'decreasing' then 2 else if sort == 'increasing' then 1 else sort,
+-    },
++    nullPointMode: null,
++    steppedLine: null,
++    tooltip: null,
+
